@@ -72,10 +72,11 @@ public class ParseUtil {
 		GwServer.Response gcmdR = GwServer.Response.getResponse(command);
 
 		//484F4D454343545600004F000000000206B6E87A0000001000000000000187FF0000000000000001 //keepalive commandid;
-	 	data = Hex.decodeHex(inputHexCode.toCharArray());
+	 	//data = Hex.decodeHex(inputHexCode.toCharArray());
 		
 	 	if (cmd == Camera.Request.REG_AND_ATHN){
-			InbndRqtRegAndAthn request = new InbndRqtRegAndAthn(data);
+			InbndRqtRegAndAthn request = new InbndRqtRegAndAthn();
+			
 			if(1 == def){
 				result = getField(HomeCameraVO.class, version);
 			}else{
@@ -83,7 +84,7 @@ public class ParseUtil {
 			}	
 		}
 	 	else if (cmdR == Camera.Response.REG_AND_ATHN){
-			InbndRqtRegAndAthn.Response request = new InbndRqtRegAndAthn.Response(data);
+			InbndRqtRegAndAthn.Response request = new InbndRqtRegAndAthn.Response();
 			if(1 == def){
 				result = getField(HomeCameraVO.class, version);
 			}else{
@@ -91,7 +92,8 @@ public class ParseUtil {
 			}	
 		}
 	 	else if (cmd == Camera.Request.KEEPALIVE){ //
-			InbndRqtKeepAliveVO request = new InbndRqtKeepAliveVO(data);
+			InbndRqtKeepAliveVO request = new InbndRqtKeepAliveVO();
+			
 			if(1 == def){
 				result = getField(HomeCameraVO.class, version);
 			}else{
@@ -99,7 +101,8 @@ public class ParseUtil {
 			}			
 		}
 	 	else if (cmdR == Camera.Response.KEEPALIVE){ //
-			InbndRqtKeepAliveVO.Response request = new InbndRqtKeepAliveVO.Response(data);
+			InbndRqtKeepAliveVO.Response request = new InbndRqtKeepAliveVO.Response();
+			
 			if(1 == def){
 				result = getField(HomeCameraVO.class, version);
 			}else{
@@ -107,7 +110,7 @@ public class ParseUtil {
 			}			
 		}
 	 	else if (cmd == Camera.Request.INTRS_DTCN_PUSH){ // 침입감지
-	 		InbndRqtIntrsDtcnPushVO request = new InbndRqtIntrsDtcnPushVO(data);
+	 		InbndRqtIntrsDtcnPushVO request = new InbndRqtIntrsDtcnPushVO();
 	 		if(1 == def){
 				result = getField(HomeCameraVO.class, version);
 			}else{
@@ -595,6 +598,7 @@ public class ParseUtil {
 	public static List<Field> getField(Class<?> c, double version){
 		LinkedList<Field> fieldsList = new LinkedList<>(Arrays.asList(c.getDeclaredFields()));
 		Iterator<Field> iterator = fieldsList.iterator();
+		
 		while (iterator.hasNext())
 		{
 			Field field = iterator.next();
