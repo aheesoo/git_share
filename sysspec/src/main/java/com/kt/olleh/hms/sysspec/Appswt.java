@@ -281,40 +281,6 @@ public class Appswt
 		}
 		return length;
 	}
-	
-	/*public void setCamSpec(Map voMap){
-		String name = "";
-		//String value = "";
-		System.out.println("voList size : "+voList.size());
-
-		Object value = null; 
-		Object obj = null;
-		
-		try{
-			for(int i=0; i<voMap.size(); i++){
-				name = voMap.get(obj);
-
-				new Label(groupBody, SWT.NULL).setText(name);
-				Text textObj = new Text(groupBody, SWT.SINGLE | SWT.BORDER);
-				textObj.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-				textObj.setText(value.toString());
-				textObj.setData("size", 20);
-				textObj.setData("type", "char");
-				if(fieldType == String.class){
-					
-				}else if(fieldType == Integer.class){
-					
-				}else if(fieldType == byte[].class){
-					//value = voLis
-				}else if(fieldType == UUID.class){
-					//value = voList.get(i).get(name).toString();
-				}
-			}
-		}catch (Exception e){
-			throw new RuntimeException();
-		}
-	}*/
-    
     
     public static void main(String[] args) {
     	new Appswt();
