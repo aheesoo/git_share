@@ -614,22 +614,4 @@ public class ParseUtil {
 		return fieldsList;
 	}
 	
-	/*public static Map<String, Object> getMap(Object obj) {
-        Field[] fields = obj.getClass().getDeclaredFields();
-        Map<String, Object> result = new HashMap<String, Object>();
-        for ( int i = 0; i < fields.length; ++i ) {
-                try {
-                	System.out.println("getName : "+fields[i].getName());
-                	System.out.println("getobj : "+fields[i].get(obj));
-                       result.put(fields[i].getName(), fields[i].get(obj));
-                       System.out.println("$$$$$$$$$$$$$ : " + result.toString());
-               } catch (IllegalArgumentException e) {
-                       e.printStackTrace();
-                       return null;
-                } catch (IllegalAccessException e) {
-                       e.printStackTrace();
-                       return null;
-                }
-        }
-        return result;*/
 }
