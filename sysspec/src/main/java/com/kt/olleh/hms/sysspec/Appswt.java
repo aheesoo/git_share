@@ -99,12 +99,10 @@ public class Appswt
 				    	try{
 				    		List<Field> resultHead = ParseUtil.getSysSepc(inputCode, 1);
 			    			List<Field> resultBody = ParseUtil.getSysSepc(inputCode, 2);
-			    			//Map result = ParseUtil.getSysSepc(inputCode, 2);
 				    		if(resultBody != null){
 				    			setCamSpec(resultHead, inputCode, 1);
 				    			setCamSpec(resultBody, inputCode, 2);
 				    			groupBody.layout();
-				    			//setCamSpec(result);
 				    			break;
 				    		}else{
 				    			
