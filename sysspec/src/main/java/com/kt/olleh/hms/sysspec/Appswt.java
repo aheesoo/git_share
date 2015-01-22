@@ -12,6 +12,8 @@ import java.util.UUID;
 
 import org.apache.commons.codec.DecoderException;
 import org.apache.commons.codec.binary.Hex;
+import org.eclipse.swt.events.KeyAdapter;
+import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.internal.win32.CREATESTRUCT;
 import org.eclipse.swt.layout.GridData;
@@ -42,6 +44,7 @@ public class Appswt
 	private static Display display;
 
 	private static Button buttonGet;
+	private static Button buttonInit;
 	
 	private Text textHex; 
 	private Group groupHeader; 
@@ -52,7 +55,7 @@ public class Appswt
 		
 		Shell shell = new Shell(display);
 		shell.setLayout(new GridLayout(1, true));
-		shell.setSize(650, 700);
+		shell.setSize(650, 750);
 		shell.setText("System Spec by hexcode");
 		
 		Group groupProxy = new Group(shell, SWT.NULL);
@@ -95,22 +98,44 @@ public class Appswt
 				case SWT.Selection:
 					if("Confirm".equals(buttonGet.getText())) {
 				    	String inputCode = textHex.getText();
-			    		System.out.println("inputcode : "+inputCode);
-				    	try{
-				    		List<Field> resultHead = ParseUtil.getSysSepc(inputCode, 1);
-			    			List<Field> resultBody = ParseUtil.getSysSepc(inputCode, 2);
-				    		if(resultBody != null){
-				    			setCamSpec(resultHead, inputCode, 1);
-				    			setCamSpec(resultBody, inputCode, 2);
-				    			groupBody.layout();
-				    			break;
-				    		}else{
-				    			
-				    			break;
-				    		}
-			    		} catch (Exception e){
-			    			e.printStackTrace();
-			    		}
+				    	getCam(inputCode);
+					} 
+					
+					break;
+				}
+			}
+		});
+		
+		textHex.addKeyListener(new KeyAdapter() 
+		{
+			public void keyPressed(KeyEvent e)
+			{
+				String string = "";
+ 
+				if(e.keyCode == SWT.CR  || e.keyCode == SWT.KEYPAD_CR)
+				{
+					String inputCode2 = textHex.getText();
+			    	getCam(inputCode2);
+				}
+			}
+		});
+		
+		buttonInit = new Button(shell, SWT.PUSH);
+		buttonInit.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		buttonInit.setText("Init");
+		buttonInit.addListener(SWT.Selection, new Listener() {
+			public void handleEvent(Event event) {
+				switch (event.type) {
+				case SWT.Selection:
+					if("Init".equals(buttonInit.getText())) {
+						Control[] controls = groupBody.getChildren();
+						for(int i = 0; i < controls.length; i++) {
+							if(controls[i].getVisible()) {
+								controls[i].dispose();
+							}
+						}
+						textHex.setText("");
+						textHex.setFocus();
 					} 
 					
 					break;
@@ -300,6 +325,23 @@ public class Appswt
 	    }
 	    return sb.toString();
 	} 
+	
+	public void getCam(String inputCode){
+		try{
+    		List<Field> resultHead = ParseUtil.getSysSepc(inputCode, 1);
+			List<Field> resultBody = ParseUtil.getSysSepc(inputCode, 2);
+    		if(resultBody != null){
+    			setCamSpec(resultHead, inputCode, 1);
+    			setCamSpec(resultBody, inputCode, 2);
+    			groupBody.layout();
+    			textHex.setFocus();
+    		}else{
+    			
+    		}
+		} catch (Exception e){
+			e.printStackTrace();
+		}
+	}
     
     public static void main(String[] args) {
     	new Appswt();
