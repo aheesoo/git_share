@@ -40,7 +40,8 @@ import com.kt.smcp.gw.ca.util.StringUtil;
 
 /**
  * Hello world!
- *484F4D454343545600004F000000000206B6E87A0000001000000000000187FF0000000000000001 //keepalive commandid;
+ * 484F4D454343545600004F000000000206B6E87A0000001000000000000187FF0000000000000001 //keepalive commandid;
+ * 484F4D4543435456 00004F00 00000008 6B6C4A40 000043A300000000000187FF0000000000000001 303031323334414142424343 323031353031313531393137303630303130303132333441414242 0001 0004 74657374 323031353031313531393137303630303130303132333441414242 0001 0004 74657374 32303135303131353139313730363030312020202053595354454d 0001 0004 74657374 32303135303131353139313730363030312020202053595354454d 0001 0004 74657374
  */
 public class Appswt 
 {
@@ -274,8 +275,8 @@ public class Appswt
 				String textArea = "";
 				new Label(groupBody, SWT.NULL).setText("Log");
 				Text textLog = new Text(groupBody,  SWT.MULTI | SWT.BORDER | SWT.WRAP | SWT.V_SCROLL);
-//				textLog.setBounds(10, 10, 500, 500);//(GridData.FILL_VERTICAL/2, GridData.FILL_HORIZONTAL/2);
 				textLog.setLayoutData(new GridData(GridData.FILL_BOTH));
+
 				while(checkLastData){
 					short logValueLength = 0;
 					for(int j=0; j<voList.size(); j++){
@@ -294,8 +295,6 @@ public class Appswt
 							fieldLength2 = anno2.length();
 						else if(anno2.index() == 5){
 							fieldLength2 = logValueLength;
-							System.out.println(" fieldLength2 : "+fieldLength2);
-							System.out.println(" fieldType  "+fieldType2);
 						}
 						/** if unfixed length **/
 						else {
@@ -313,10 +312,8 @@ public class Appswt
 						if (fieldType2 == String.class)
 						{
 							String value = bytesToString(extractedData2);
-							// break for loop
-							if(value == null || "".equals(value)){
-								checkLastData = false;
-								break;
+							if("LogType".equals(name)){
+								value = trimBytesToString(extractedData2);
 							}
 							reValue = value;
 							System.out.println(" String value : "+value);
@@ -324,13 +321,7 @@ public class Appswt
 						else if (fieldType2 == Integer.class)
 						{
 							Integer value = bytesToInteger(extractedData2);
-
-							if("Command".equals(name)){
-								
-								reValue = byteArrayToHex(extractedData2);
-							}else{
-								reValue = value.toString();
-							}
+							reValue = value.toString();
 							System.out.println(" int value : "+value);
 						}
 						else if (fieldType2 == Short.class)
@@ -376,6 +367,23 @@ public class Appswt
 			if (b == 0)
 				break;
 
+			sb.append((char) b);
+		}
+		String result = sb.toString();
+		return result;
+	}
+	private static String trimBytesToString(byte[] src) {
+		StringBuffer sb = new StringBuffer();
+		for (byte b : src)
+		{
+			String hexString = "";
+			hexString += Integer.toString((b & 0xF0) >> 4, 16);  
+    	    hexString += Integer.toString(b & 0x0F, 16);
+			if (b == 0)
+				break;
+			else if("20".equals(hexString)){
+				continue;
+			}
 			sb.append((char) b);
 		}
 		String result = sb.toString();
