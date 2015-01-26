@@ -5,6 +5,9 @@ import java.io.IOException;
 import java.lang.reflect.Field;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -194,78 +197,85 @@ public class Appswt
 				offset = bodyOff;
 				bodyOff = 0;
 			}
-			for(int i=0; i<voList.size(); i++){
-				Class<?> fieldType = voList.get(i).getType();
-				String fieldTypeSimpleName = fieldType.getSimpleName();
-				name = voList.get(i).getName();
-				Field field = voList.get(i);
-				
-				FieldHint anno = field.getAnnotation(FieldHint.class);
-				int fieldLength;
-				
-				double version = HomeCameraUtil.extractVersion(data);
-				/** if fixed length **/
-				if (anno.length() > 0)
-					fieldLength = anno.length();
-				/** if unfixed length **/
-				else
-				{
-					fieldLength = DataSize + calculateProtocolLength(voList) - offset;
-				}
-				byte[] extractedData = new byte[fieldLength];
-
-				System.arraycopy(data, offset, extractedData, 0, fieldLength);
-				offset += fieldLength;
-				
-				field.setAccessible(true);
-				
-				if (fieldType == String.class)
-				{
-					String value = bytesToString(extractedData);
-					reValue = value;
-					System.out.println(" String value : "+value);
-				}
-				else if (fieldType == Integer.class)
-				{
-					Integer value = bytesToInteger(extractedData);
-
-					if("Command".equals(name)){
-						
-						reValue = byteArrayToHex(extractedData);
-					}else{
-						reValue = value.toString();
+			if(3 != defInt){
+				for(int i=0; i<voList.size(); i++){
+					Class<?> fieldType = voList.get(i).getType();
+					String fieldTypeSimpleName = fieldType.getSimpleName();
+					name = voList.get(i).getName();
+					Field field = voList.get(i);
+					
+					FieldHint anno = field.getAnnotation(FieldHint.class);
+					int fieldLength;
+					
+					double version = HomeCameraUtil.extractVersion(data);
+					/** if fixed length **/
+					if (anno.length() > 0)
+						fieldLength = anno.length();
+					/** if unfixed length **/
+					else
+					{
+						fieldLength = DataSize + calculateProtocolLength(voList) - offset;
 					}
-					System.out.println(" int value : "+value);
+					byte[] extractedData = new byte[fieldLength];
+	
+					System.arraycopy(data, offset, extractedData, 0, fieldLength);
+					offset += fieldLength;
+					
+					field.setAccessible(true);
+					
+					if (fieldType == String.class)
+					{
+						String value = bytesToString(extractedData);
+						reValue = value;
+						System.out.println(" String value : "+value);
+					}
+					else if (fieldType == Integer.class)
+					{
+						Integer value = bytesToInteger(extractedData);
+						if("Command".equals(name)){
+							
+							reValue = byteArrayToHex(extractedData);
+						}else{
+							reValue = value.toString();
+						}
+						System.out.println(" int value : "+value);
+					}
+					else if (fieldType == byte[].class)
+					{
+						byte[] value = extractedData;
+						reValue = String.valueOf(value.length);
+						System.out.println(" byte value : "+value);
+					}
+					else if (fieldType == UUID.class)
+					{
+						UUID value = bytesToUUID(extractedData);
+						reValue = value.toString();
+						System.out.println(" UUID value : "+value);
+					}
+					else
+						throw new RuntimeException("Setting field of " + fieldTypeSimpleName + " is not yet implemented.");
+	
+					new Label(groupBody, SWT.NULL).setText(name);
+					Text textObj = new Text(groupBody, SWT.SINGLE | SWT.BORDER);
+					textObj.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+					textObj.setText(reValue);
+					textObj.setData("size", 20);
+					textObj.setData("type", "char");
 				}
-				else if (fieldType == byte[].class)
-				{
-					byte[] value = extractedData;
-					reValue = String.valueOf(value.length);
-					System.out.println(" byte value : "+value);
-				}
-				else if (fieldType == UUID.class)
-				{
-					UUID value = bytesToUUID(extractedData);
-					reValue = value.toString();
-					System.out.println(" UUID value : "+value);
-				}
-				else
-					throw new RuntimeException("Setting field of " + fieldTypeSimpleName + " is not yet implemented.");
-
-				new Label(groupBody, SWT.NULL).setText(name);
-				Text textObj = new Text(groupBody, SWT.SINGLE | SWT.BORDER);
-				textObj.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-				textObj.setText(reValue);
-				textObj.setData("size", 20);
-				textObj.setData("type", "char");
+				bodyOff = offset;
+				logOff = offset;
 			}
-			bodyOff = offset;
-			logOff = offset;
 			
 			// 반복 log data print
 			if(3 == defInt){
 				offset = logOff;
 				boolean checkLastData = true;
+				
+				String textArea = "";
+				new Label(groupBody, SWT.NULL).setText("Log");
+				Text textLog = new Text(groupBody,  SWT.MULTI | SWT.BORDER | SWT.WRAP | SWT.V_SCROLL);
+//				textLog.setBounds(10, 10, 500, 500);//(GridData.FILL_VERTICAL/2, GridData.FILL_HORIZONTAL/2);
+				textLog.setLayoutData(new GridData(GridData.FILL_BOTH));
 				while(checkLastData){
 					short logValueLength = 0;
 					for(int j=0; j<voList.size(); j++){
@@ -284,22 +294,25 @@ public class Appswt
 							fieldLength2 = anno2.length();
 						else if(anno2.index() == 5){
 							fieldLength2 = logValueLength;
+							System.out.println(" fieldLength2 : "+fieldLength2);
+							System.out.println(" fieldType  "+fieldType2);
 						}
 						/** if unfixed length **/
 						else {
 							fieldLength2 = DataSize + calculateProtocolLength(voList) - offset;
 						}
 						byte[] extractedData2 = new byte[fieldLength2];
-
+						if(checkData(data, offset,  fieldLength2)) {
+							checkLastData = false;
+							break;
+						}
 						System.arraycopy(data, offset, extractedData2, 0, fieldLength2);
 						offset += fieldLength2;
-						
 						field2.setAccessible(true);
 						
 						if (fieldType2 == String.class)
 						{
 							String value = bytesToString(extractedData2);
-
 							// break for loop
 							if(value == null || "".equals(value)){
 								checkLastData = false;
@@ -325,7 +338,7 @@ public class Appswt
 							short value = bytesToShort(extractedData2);
 							logValueLength = value;
 							reValue = String.valueOf(value);
-							System.out.println(" int value : "+value);
+							System.out.println(" short value : "+logValueLength);
 						}
 						else if (fieldType2 == byte[].class)
 						{
@@ -341,15 +354,18 @@ public class Appswt
 						}
 						else
 							throw new RuntimeException("Setting field of " + fieldTypeSimpleName2 + " is not yet implemented.");
-
-						new Label(groupBody, SWT.NULL).setText(name);
+						
+						/*new Label(groupBody, SWT.NULL).setText(name);
 						Text textObj = new Text(groupBody, SWT.SINGLE | SWT.BORDER);
 						textObj.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 						textObj.setText(reValue);
 						textObj.setData("size", 20);
-						textObj.setData("type", "char");
-					
+						textObj.setData("type", "char");*/
+						
+						textArea += "<"+name+"> : "+reValue;
+						textArea += "\r\n";
 					}
+					textLog.setText(textArea);					
 					logOff = offset;
 				}
 			}
@@ -426,6 +442,33 @@ public class Appswt
 	    return sb.toString();
 	} 
 	
+	public static Date StringToDate(String time) throws ParseException
+    {
+        return StringtoDate(time, defaultFormat);
+    }
+
+    public static Date StringtoDate(String time, String format) throws ParseException
+    {
+        SimpleDateFormat nowSimpleDateFormat = new SimpleDateFormat(format);
+        return nowSimpleDateFormat.parse(time);
+    }
+
+    private static String defaultFormat = "yyyy-MM-dd HH:mm:ss.SSS";
+    private static String yyyyMMddHHmmssFormat = "yyyy-MM-dd HH:mm:ss";
+    private static String HHmmssFormat = "HH:mm:ss";
+	
+    public boolean checkData(byte[] data, int off, int fieldLength2){
+    	boolean result = false;
+    	
+    	int dataLength = data.length;
+    	int curDataLength = off + fieldLength2;
+    	
+    	if(dataLength <curDataLength)
+    		result = true;
+    	
+    	return result;
+    }
+    
 	public void getCam(String inputCode){
 		try{
     		List<Field> resultHead = ParseUtil.getSysSepc(inputCode, 1);
