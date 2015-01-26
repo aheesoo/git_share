@@ -355,16 +355,10 @@ public class Appswt
 						else
 							throw new RuntimeException("Setting field of " + fieldTypeSimpleName2 + " is not yet implemented.");
 						
-						/*new Label(groupBody, SWT.NULL).setText(name);
-						Text textObj = new Text(groupBody, SWT.SINGLE | SWT.BORDER);
-						textObj.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-						textObj.setText(reValue);
-						textObj.setData("size", 20);
-						textObj.setData("type", "char");*/
-						
 						textArea += "<"+name+"> : "+reValue;
 						textArea += "\r\n";
 					}
+					textArea += "\r\n";
 					textLog.setText(textArea);					
 					logOff = offset;
 				}
@@ -475,7 +469,7 @@ public class Appswt
 			List<Field> resultBody = ParseUtil.getSysSepc(inputCode, 2);
 			
     		if(resultBody != null){
-    			setCamSpec(resultHead, inputCode, 1);
+    			setCamSpec(resultHead, inputCode, 1);	// 1,2,3 -> head,body,log 구분자
     			setCamSpec(resultBody, inputCode, 2);
     			
     			boolean isLogVO = ParseUtil.checkLogVO(inputCode);
