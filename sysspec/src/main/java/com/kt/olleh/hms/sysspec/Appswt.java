@@ -169,6 +169,7 @@ public class Appswt
 	}
 	
 	private int bodyOff = 0;
+	private int logOff = 0;
 	public void setCamSpec(List<Field> voList, String code, int defInt) throws DecoderException{
 		
 		if(1 == defInt){
@@ -259,6 +260,100 @@ public class Appswt
 				textObj.setData("type", "char");
 			}
 			bodyOff = offset;
+			logOff = offset;
+			
+			// 반복 log data print
+			if(3 == defInt){
+				offset = logOff;
+				boolean checkLastData = true;
+				while(checkLastData){
+					short logValueLength = 0;
+					for(int j=0; j<voList.size(); j++){
+						
+						Class<?> fieldType2 = voList.get(j).getType();
+						String fieldTypeSimpleName2 = fieldType2.getSimpleName();
+						name = voList.get(j).getName();
+						Field field2 = voList.get(j);
+						FieldHint anno2 = field2.getAnnotation(FieldHint.class);
+						int fieldLength2;
+						double version = HomeCameraUtil.extractVersion(data);
+						
+						
+						/** if fixed length **/
+						if (anno2.length() > 0)
+							fieldLength2 = anno2.length();
+						else if(anno2.index() == 5){
+							fieldLength2 = logValueLength;
+						}
+						/** if unfixed length **/
+						else {
+							fieldLength2 = DataSize + calculateProtocolLength(voList) - offset;
+						}
+						byte[] extractedData2 = new byte[fieldLength2];
+
+						System.arraycopy(data, offset, extractedData2, 0, fieldLength2);
+						offset += fieldLength2;
+						
+						field2.setAccessible(true);
+						
+						if (fieldType2 == String.class)
+						{
+							String value = bytesToString(extractedData2);
+
+							// break for loop
+							if(value == null || "".equals(value)){
+								checkLastData = false;
+								break;
+							}
+							reValue = value;
+							System.out.println(" String value : "+value);
+						}
+						else if (fieldType2 == Integer.class)
+						{
+							Integer value = bytesToInteger(extractedData2);
+
+							if("Command".equals(name)){
+								
+								reValue = byteArrayToHex(extractedData2);
+							}else{
+								reValue = value.toString();
+							}
+							System.out.println(" int value : "+value);
+						}
+						else if (fieldType2 == Short.class)
+						{
+							short value = bytesToShort(extractedData2);
+							logValueLength = value;
+							reValue = String.valueOf(value);
+							System.out.println(" int value : "+value);
+						}
+						else if (fieldType2 == byte[].class)
+						{
+							byte[] value = extractedData2;
+							reValue = String.valueOf(value.length);
+							System.out.println(" byte value : "+value);
+						}
+						else if (fieldType2 == UUID.class)
+						{
+							UUID value = bytesToUUID(extractedData2);
+							reValue = value.toString();
+							System.out.println(" UUID value : "+value);
+						}
+						else
+							throw new RuntimeException("Setting field of " + fieldTypeSimpleName2 + " is not yet implemented.");
+
+						new Label(groupBody, SWT.NULL).setText(name);
+						Text textObj = new Text(groupBody, SWT.SINGLE | SWT.BORDER);
+						textObj.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+						textObj.setText(reValue);
+						textObj.setData("size", 20);
+						textObj.setData("type", "char");
+					
+					}
+					logOff = offset;
+				}
+			}
+			
 		}catch (Exception e){
 			throw new RuntimeException();
 		}
@@ -279,6 +374,11 @@ public class Appswt
 
 	private static Integer bytesToInteger(byte[] src) {
 		int result = ByteBuffer.wrap(src).getInt();
+		return result;
+	}
+	
+	private static Short bytesToShort(byte[] src) {
+		short result = ByteBuffer.wrap(src).getShort();
 		return result;
 	}
 	
@@ -330,19 +430,26 @@ public class Appswt
 		try{
     		List<Field> resultHead = ParseUtil.getSysSepc(inputCode, 1);
 			List<Field> resultBody = ParseUtil.getSysSepc(inputCode, 2);
+			
     		if(resultBody != null){
     			setCamSpec(resultHead, inputCode, 1);
     			setCamSpec(resultBody, inputCode, 2);
+    			
+    			boolean isLogVO = ParseUtil.checkLogVO(inputCode);
+        		if(isLogVO){
+        			List<Field> resultLog = ParseUtil.getSysSepc(inputCode, 3);
+        			setCamSpec(resultLog, inputCode, 3);
+        		}
+    			
     			groupBody.layout();
     			textHex.setFocus();
-    		}else{
-    			
     		}
+    		
 		} catch (Exception e){
 			e.printStackTrace();
 		}
 	}
-    
+	
     public static void main(String[] args) {
     	new Appswt();
       }

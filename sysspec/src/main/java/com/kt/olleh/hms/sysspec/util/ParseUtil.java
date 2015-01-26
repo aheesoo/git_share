@@ -19,6 +19,8 @@ import com.kt.olleh.hms.sysspec.annotation.FieldHintIndexComparator;
 import com.kt.olleh.hms.sysspec.vo.HomeCameraCode.Camera;
 import com.kt.olleh.hms.sysspec.vo.HomeCameraCode.GwServer;
 import com.kt.olleh.hms.sysspec.vo.HomeCameraVO;
+import com.kt.olleh.hms.sysspec.vo.InbndRqtCamLogListVO;
+import com.kt.olleh.hms.sysspec.vo.InbndRqtCamLogModeSendVO;
 import com.kt.olleh.hms.sysspec.vo.InbndRqtKeepAliveVO;
 import com.kt.olleh.hms.sysspec.vo.InbndRqtPwrOffPushVO;
 import com.kt.olleh.hms.sysspec.vo.InbndRqtRegAndAthn;
@@ -79,7 +81,7 @@ public class ParseUtil {
 			
 			if(1 == def){
 				result = getField(HomeCameraVO.class, version);
-			}else{
+			}else if(2 == def){
 				result = getField(request.getClass(), version);
 			}	
 		}
@@ -87,7 +89,7 @@ public class ParseUtil {
 			InbndRqtRegAndAthn.Response request = new InbndRqtRegAndAthn.Response();
 			if(1 == def){
 				result = getField(HomeCameraVO.class, version);
-			}else{
+			}else if(2 == def){
 				result = getField(request.getClass(), version);
 			}	
 		}
@@ -96,7 +98,7 @@ public class ParseUtil {
 			
 			if(1 == def){
 				result = getField(HomeCameraVO.class, version);
-			}else{
+			}else if(2 == def){
 				result = getField(request.getClass(), version);
 			}			
 		}
@@ -105,7 +107,7 @@ public class ParseUtil {
 			
 			if(1 == def){
 				result = getField(HomeCameraVO.class, version);
-			}else{
+			}else if(2 == def){
 				result = getField(request.getClass(), version);
 			}			
 		}
@@ -113,7 +115,7 @@ public class ParseUtil {
 	 		InbndRqtIntrsDtcnPushVO request = new InbndRqtIntrsDtcnPushVO();
 	 		if(1 == def){
 				result = getField(HomeCameraVO.class, version);
-			}else{
+			}else if(2 == def){
 				result = getField(request.getClass(), version);
 			}	 		
 		} 
@@ -121,7 +123,7 @@ public class ParseUtil {
 	 		InbndRqtIntrsDtcnPushVO.Response request = new InbndRqtIntrsDtcnPushVO.Response();
 	 		if(1 == def){
 				result = getField(HomeCameraVO.class, version);
-			}else{
+			}else if(2 == def){
 				result = getField(request.getClass(), version);
 			}	 		
 		} 
@@ -129,7 +131,7 @@ public class ParseUtil {
 	 		InbndRqtUcloudErrPushVO request = new InbndRqtUcloudErrPushVO();
 	 		if(1 == def){
 				result = getField(HomeCameraVO.class, version);
-			}else{
+			}else if(2 == def){
 				result = getField(request.getClass(), version);
 			}	
 		} 
@@ -137,7 +139,7 @@ public class ParseUtil {
 	 		InbndRqtUcloudErrPushVO.Response request = new InbndRqtUcloudErrPushVO.Response();
 	 		if(1 == def){
 				result = getField(HomeCameraVO.class, version);
-			}else{
+			}else if(2 == def){
 				result = getField(request.getClass(), version);
 			}	
 		} 
@@ -145,7 +147,7 @@ public class ParseUtil {
 	 		InbndRqtPwrOffPushVO request = new InbndRqtPwrOffPushVO();
 	 		if(1 == def){
 				result = getField(HomeCameraVO.class, version);
-			}else{
+			}else if(2 == def){
 				result = getField(request.getClass(), version);
 			}	
 		} 
@@ -153,7 +155,7 @@ public class ParseUtil {
 	 		InbndRqtPwrOffPushVO.Response request = new InbndRqtPwrOffPushVO.Response();
 	 		if(1 == def){
 				result = getField(HomeCameraVO.class, version);
-			}else{
+			}else if(2 == def){
 				result = getField(request.getClass(), version);
 			}	
 		} 
@@ -161,7 +163,7 @@ public class ParseUtil {
 	 		InbndRqtUcloudToknUpdVO request = new InbndRqtUcloudToknUpdVO();
 	 		if(1 == def){
 				result = getField(HomeCameraVO.class, version);
-			}else{
+			}else if(2 == def){
 				result = getField(request.getClass(), version);
 			}	
 		} 
@@ -169,7 +171,7 @@ public class ParseUtil {
 	 		InbndRqtUcloudToknUpdVO.Response request = new InbndRqtUcloudToknUpdVO.Response();
 	 		if(1 == def){
 				result = getField(HomeCameraVO.class, version);
-			}else{
+			}else if(2 == def){
 				result = getField(request.getClass(), version);
 			}	
 		} 
@@ -177,7 +179,7 @@ public class ParseUtil {
 	 		InbndRqtSDCardErrPushVO request = new InbndRqtSDCardErrPushVO();
 	 		if(1 == def){
 				result = getField(HomeCameraVO.class, version);
-			}else{
+			}else if(2 == def){
 				result = getField(request.getClass(), version);
 			}	
 		} 
@@ -185,15 +187,37 @@ public class ParseUtil {
 	 		InbndRqtSDCardErrPushVO.Response request = new InbndRqtSDCardErrPushVO.Response();
 	 		if(1 == def){
 				result = getField(HomeCameraVO.class, version);
-			}else{
+			}else if(2 == def){
 				result = getField(request.getClass(), version);
 			}	
 		} 
+	 	else if (cmd == Camera.Request.CAM_LOG_SEND){ // 카메라 로그 전송
+	 		InbndRqtCamLogModeSendVO request = new InbndRqtCamLogModeSendVO();
+	 		if(1 == def){
+				result = getField(HomeCameraVO.class, version);
+			}else if(2 == def){
+				result = getField(request.getClass(), version);
+			}else if(3 == def){
+				InbndRqtCamLogListVO requestLogVO = new InbndRqtCamLogListVO();
+				result = getField(requestLogVO.getClass(), version);
+			}
+		} 
+	 	else if (cmdR == Camera.Response.CAM_LOG_SEND){ // 카페라 로그 전송
+	 		InbndRqtCamLogModeSendVO.Response request = new InbndRqtCamLogModeSendVO.Response();
+	 		if(1 == def){
+				result = getField(HomeCameraVO.class, version);
+			}else if(2 == def){
+				result = getField(request.getClass(), version);
+			}else if(3 == def){
+				InbndRqtCamLogListVO requestLogVO = new InbndRqtCamLogListVO();
+				result = getField(requestLogVO.getClass(), version);
+			}	
+		}
 		else if (gcmd == GwServer.Request.GENRL_SETUP_RETV){ // 카메라 설정 정보 조회
 			OutbndRqtSetupRetvVO request = new OutbndRqtSetupRetvVO();
 			if(1 == def){
 				result = getField(HomeCameraVO.class, version);
-			}else{
+			}else if(2 == def){
 				result = getField(request.getClass(), version);
 			}	 		
 		}
@@ -201,7 +225,7 @@ public class ParseUtil {
 			OutbndRqtSetupRetvVO.Response request = new OutbndRqtSetupRetvVO.Response();
 			if(1 == def){
 				result = getField(HomeCameraVO.class, version);
-			}else{
+			}else if(2 == def){
 				result = getField(request.getClass(), version);
 			}	 		
 		}
@@ -209,7 +233,7 @@ public class ParseUtil {
 			OutbndRqtSetupStoreVO request = new OutbndRqtSetupStoreVO();
 			if(1 == def){
 				result = getField(HomeCameraVO.class, version);
-			}else{
+			}else if(2 == def){
 				result = getField(request.getClass(), version);
 			}	 		
 		}
@@ -217,7 +241,7 @@ public class ParseUtil {
 			OutbndRqtSetupStoreVO.Response request = new OutbndRqtSetupStoreVO.Response();
 			if(1 == def){
 				result = getField(HomeCameraVO.class, version);
-			}else{
+			}else if(2 == def){
 				result = getField(request.getClass(), version);
 			}	 		
 		}
@@ -225,7 +249,7 @@ public class ParseUtil {
 			OutbndRqtScdulRetvVO request = new OutbndRqtScdulRetvVO();
 			if(1 == def){
 				result = getField(HomeCameraVO.class, version);
-			}else{
+			}else if(2 == def){
 				result = getField(request.getClass(), version);
 			}	 		
 		}
@@ -233,7 +257,7 @@ public class ParseUtil {
 			OutbndRqtScdulRetvVO.Response request = new OutbndRqtScdulRetvVO.Response();
 			if(1 == def){
 				result = getField(HomeCameraVO.class, version);
-			}else{
+			}else if(2 == def){
 				result = getField(request.getClass(), version);
 			}	 		
 		}
@@ -241,7 +265,7 @@ public class ParseUtil {
 			OutbndRqtScdulStoreVO request = new OutbndRqtScdulStoreVO();
 			if(1 == def){
 				result = getField(HomeCameraVO.class, version);
-			}else{
+			}else if(2 == def){
 				result = getField(request.getClass(), version);
 			}	 		
 		}
@@ -249,7 +273,7 @@ public class ParseUtil {
 			OutbndRqtScdulStoreVO.Response request = new OutbndRqtScdulStoreVO.Response();
 			if(1 == def){
 				result = getField(HomeCameraVO.class, version);
-			}else{
+			}else if(2 == def){
 				result = getField(request.getClass(), version);
 			}	 		
 		}
@@ -257,7 +281,7 @@ public class ParseUtil {
 			OutbndRqtRestartContlVO request = new OutbndRqtRestartContlVO();
 			if(1 == def){
 				result = getField(HomeCameraVO.class, version);
-			}else{
+			}else if(2 == def){
 				result = getField(request.getClass(), version);
 			}	 		
 		}
@@ -265,7 +289,7 @@ public class ParseUtil {
 			OutbndRqtRestartContlVO.Response request = new OutbndRqtRestartContlVO.Response();
 			if(1 == def){
 				result = getField(HomeCameraVO.class, version);
-			}else{
+			}else if(2 == def){
 				result = getField(request.getClass(), version);
 			}	 		
 		}
@@ -273,7 +297,7 @@ public class ParseUtil {
 			OutbndRqtWifiRecnContlVO request = new OutbndRqtWifiRecnContlVO();
 			if(1 == def){
 				result = getField(HomeCameraVO.class, version);
-			}else{
+			}else if(2 == def){
 				result = getField(request.getClass(), version);
 			}	 		
 		}
@@ -281,7 +305,7 @@ public class ParseUtil {
 			OutbndRqtWifiRecnContlVO.Response request = new OutbndRqtWifiRecnContlVO.Response();
 			if(1 == def){
 				result = getField(HomeCameraVO.class, version);
-			}else{
+			}else if(2 == def){
 				result = getField(request.getClass(), version);
 			}	 		
 		}
@@ -289,7 +313,7 @@ public class ParseUtil {
 			OutbndRqtAlmContlVO request = new OutbndRqtAlmContlVO();
 			if(1 == def){
 				result = getField(HomeCameraVO.class, version);
-			}else{
+			}else if(2 == def){
 				result = getField(request.getClass(), version);
 			}	 		
 		}
@@ -297,7 +321,7 @@ public class ParseUtil {
 			OutbndRqtAlmContlVO.Response request = new OutbndRqtAlmContlVO.Response();
 			if(1 == def){
 				result = getField(HomeCameraVO.class, version);
-			}else{
+			}else if(2 == def){
 				result = getField(request.getClass(), version);
 			}	 		
 		}
@@ -305,7 +329,7 @@ public class ParseUtil {
 			OutbndRqtPanTiltContlVO request = new OutbndRqtPanTiltContlVO();
 			if(1 == def){
 				result = getField(HomeCameraVO.class, version);
-			}else{
+			}else if(2 == def){
 				result = getField(request.getClass(), version);
 			}	 		
 		}
@@ -313,7 +337,7 @@ public class ParseUtil {
 			OutbndRqtPanTiltContlVO.Response request = new OutbndRqtPanTiltContlVO.Response();
 			if(1 == def){
 				result = getField(HomeCameraVO.class, version);
-			}else{
+			}else if(2 == def){
 				result = getField(request.getClass(), version);
 			}	 		
 		}
@@ -321,7 +345,7 @@ public class ParseUtil {
 			OutbndRqtRelaySessnConnVO request = new OutbndRqtRelaySessnConnVO();
 			if(1 == def){
 				result = getField(HomeCameraVO.class, version);
-			}else{
+			}else if(2 == def){
 				result = getField(request.getClass(), version);
 			}	 		
 		}
@@ -329,7 +353,7 @@ public class ParseUtil {
 			OutbndRqtRelaySessnConnVO.Response request = new OutbndRqtRelaySessnConnVO.Response();
 			if(1 == def){
 				result = getField(HomeCameraVO.class, version);
-			}else{
+			}else if(2 == def){
 				result = getField(request.getClass(), version);
 			}	 		
 		}
@@ -337,7 +361,7 @@ public class ParseUtil {
 			OutbndRqtVcCnvyVO request = new OutbndRqtVcCnvyVO();
 			if(1 == def){
 				result = getField(request.getClass(), version);
-			}else{
+			}else if(2 == def){
 				result = getField(request.getClass(), version);
 			}	 		
 		}
@@ -345,7 +369,7 @@ public class ParseUtil {
 			OutbndRqtVcCnvyVO.Response request = new OutbndRqtVcCnvyVO.Response();
 			if(1 == def){
 				result = getField(HomeCameraVO.class, version);
-			}else{
+			}else if(2 == def){
 				result = getField(request.getClass(), version);
 			}	 		
 		}
@@ -353,7 +377,7 @@ public class ParseUtil {
 			OutbndRqtVdoSendActvStoreVO request = new OutbndRqtVdoSendActvStoreVO();
 			if(1 == def){
 				result = getField(HomeCameraVO.class, version);
-			}else{
+			}else if(2 == def){
 				result = getField(request.getClass(), version);
 			}	 		
 		}
@@ -361,7 +385,7 @@ public class ParseUtil {
 			OutbndRqtVdoSendActvStoreVO.Response request = new OutbndRqtVdoSendActvStoreVO.Response();
 			if(1 == def){
 				result = getField(HomeCameraVO.class, version);
-			}else{
+			}else if(2 == def){
 				result = getField(request.getClass(), version);
 			}	 		
 		}
@@ -369,7 +393,7 @@ public class ParseUtil {
 			OutbndRqtVdoResolStoreVO request = new OutbndRqtVdoResolStoreVO();
 			if(1 == def){
 				result = getField(HomeCameraVO.class, version);
-			}else{
+			}else if(2 == def){
 				result = getField(request.getClass(), version);
 			}	 		
 		}
@@ -377,7 +401,7 @@ public class ParseUtil {
 			OutbndRqtVdoResolStoreVO.Response request = new OutbndRqtVdoResolStoreVO.Response();
 			if(1 == def){
 				result = getField(HomeCameraVO.class, version);
-			}else{
+			}else if(2 == def){
 				result = getField(request.getClass(), version);
 			}	 		
 		}
@@ -385,7 +409,7 @@ public class ParseUtil {
 			OutbndRqtIntrsDtcnStoreVO request = new OutbndRqtIntrsDtcnStoreVO();
 			if(1 == def){
 				result = getField(HomeCameraVO.class, version);
-			}else{
+			}else if(2 == def){
 				result = getField(request.getClass(), version);
 			}	 		
 		}
@@ -393,7 +417,7 @@ public class ParseUtil {
 			OutbndRqtIntrsDtcnStoreVO.Response request = new OutbndRqtIntrsDtcnStoreVO.Response();
 			if(1 == def){
 				result = getField(HomeCameraVO.class, version);
-			}else{
+			}else if(2 == def){
 				result = getField(request.getClass(), version);
 			}	 		
 		}
@@ -401,7 +425,7 @@ public class ParseUtil {
 			OutbndRqtSnstyStoreVO request = new OutbndRqtSnstyStoreVO();
 			if(1 == def){
 				result = getField(HomeCameraVO.class, version);
-			}else{
+			}else if(2 == def){
 				result = getField(request.getClass(), version);
 			}	 		
 		}
@@ -409,7 +433,7 @@ public class ParseUtil {
 			OutbndRqtSnstyStoreVO.Response request = new OutbndRqtSnstyStoreVO.Response();
 			if(1 == def){
 				result = getField(HomeCameraVO.class, version);
-			}else{
+			}else if(2 == def){
 				result = getField(request.getClass(), version);
 			}	 		
 		}
@@ -417,7 +441,7 @@ public class ParseUtil {
 			OutbndRqtVdoRvrtStoreVO request = new OutbndRqtVdoRvrtStoreVO();
 			if(1 == def){
 				result = getField(HomeCameraVO.class, version);
-			}else{
+			}else if(2 == def){
 				result = getField(request.getClass(), version);
 			}	 		
 		}
@@ -425,7 +449,7 @@ public class ParseUtil {
 			OutbndRqtVdoRvrtStoreVO.Response request = new OutbndRqtVdoRvrtStoreVO.Response();
 			if(1 == def){
 				result = getField(HomeCameraVO.class, version);
-			}else{
+			}else if(2 == def){
 				result = getField(request.getClass(), version);
 			}	 		
 		}
@@ -433,7 +457,7 @@ public class ParseUtil {
 			OutbndRqtMtnDtcnPushIntvlStoreVO request = new OutbndRqtMtnDtcnPushIntvlStoreVO();
 			if(1 == def){
 				result = getField(HomeCameraVO.class, version);
-			}else{
+			}else if(2 == def){
 				result = getField(request.getClass(), version);
 			}	 		
 		}
@@ -441,7 +465,7 @@ public class ParseUtil {
 			OutbndRqtMtnDtcnPushIntvlStoreVO.Response request = new OutbndRqtMtnDtcnPushIntvlStoreVO.Response();
 			if(1 == def){
 				result = getField(HomeCameraVO.class, version);
-			}else{
+			}else if(2 == def){
 				result = getField(request.getClass(), version);
 			}	 		
 		}
@@ -449,7 +473,7 @@ public class ParseUtil {
 			OutbndRqtUcloudCpctPushIntvlStoreVO request = new OutbndRqtUcloudCpctPushIntvlStoreVO();
 			if(1 == def){
 				result = getField(HomeCameraVO.class, version);
-			}else{
+			}else if(2 == def){
 				result = getField(request.getClass(), version);
 			}	 		
 		}
@@ -457,7 +481,7 @@ public class ParseUtil {
 			OutbndRqtUcloudCpctPushIntvlStoreVO.Response request = new OutbndRqtUcloudCpctPushIntvlStoreVO.Response();
 			if(1 == def){
 				result = getField(HomeCameraVO.class, version);
-			}else{
+			}else if(2 == def){
 				result = getField(request.getClass(), version);
 			}	 		
 		}
@@ -466,7 +490,7 @@ public class ParseUtil {
 			OutbndRqtStrgeModeStoreVO request = new OutbndRqtStrgeModeStoreVO();
 			if(1 == def){
 				result = getField(HomeCameraVO.class, version);
-			}else{
+			}else if(2 == def){
 				result = getField(request.getClass(), version);
 			}	 		
 		}
@@ -474,7 +498,7 @@ public class ParseUtil {
 			OutbndRqtStrgeModeStoreVO.Response request = new OutbndRqtStrgeModeStoreVO.Response();
 			if(1 == def){
 				result = getField(HomeCameraVO.class, version);
-			}else{
+			}else if(2 == def){
 				result = getField(request.getClass(), version);
 			}	 		
 		}
@@ -482,7 +506,7 @@ public class ParseUtil {
 			OutbndRqtWatchScdulRetvVO request = new OutbndRqtWatchScdulRetvVO();
 			if(1 == def){
 				result = getField(HomeCameraVO.class, version);
-			}else{
+			}else if(2 == def){
 				result = getField(request.getClass(), version);
 			}	 		
 		}
@@ -490,7 +514,7 @@ public class ParseUtil {
 			OutbndRqtWatchScdulRetvVO.Response request = new OutbndRqtWatchScdulRetvVO.Response();
 			if(1 == def){
 				result = getField(HomeCameraVO.class, version);
-			}else{
+			}else if(2 == def){
 				result = getField(request.getClass(), version);
 			}	 		
 		}
@@ -498,7 +522,7 @@ public class ParseUtil {
 			OutbndRqtWatchScdulStoreVO request = new OutbndRqtWatchScdulStoreVO();
 			if(1 == def){
 				result = getField(HomeCameraVO.class, version);
-			}else{
+			}else if(2 == def){
 				result = getField(request.getClass(), version);
 			}	 		
 		}
@@ -506,7 +530,7 @@ public class ParseUtil {
 			OutbndRqtWatchScdulStoreVO.Response request = new OutbndRqtWatchScdulStoreVO.Response();
 			if(1 == def){
 				result = getField(HomeCameraVO.class, version);
-			}else{
+			}else if(2 == def){
 				result = getField(request.getClass(), version);
 			}	 		
 		}
@@ -514,7 +538,7 @@ public class ParseUtil {
 			OutbndRqtRecScdulRetvVO request = new OutbndRqtRecScdulRetvVO();
 			if(1 == def){
 				result = getField(HomeCameraVO.class, version);
-			}else{
+			}else if(2 == def){
 				result = getField(request.getClass(), version);
 			}	 		
 		}
@@ -522,7 +546,7 @@ public class ParseUtil {
 			OutbndRqtRecScdulRetvVO.Response request = new OutbndRqtRecScdulRetvVO.Response();
 			if(1 == def){
 				result = getField(HomeCameraVO.class, version);
-			}else{
+			}else if(2 == def){
 				result = getField(request.getClass(), version);
 			}	 		
 		}
@@ -530,7 +554,7 @@ public class ParseUtil {
 			OutbndRqtRecScdulStoreVO request = new OutbndRqtRecScdulStoreVO();
 			if(1 == def){
 				result = getField(HomeCameraVO.class, version);
-			}else{
+			}else if(2 == def){
 				result = getField(request.getClass(), version);
 			}	 		
 		}
@@ -538,7 +562,7 @@ public class ParseUtil {
 			OutbndRqtRecScdulStoreVO.Response request = new OutbndRqtRecScdulStoreVO.Response();
 			if(1 == def){
 				result = getField(HomeCameraVO.class, version);
-			}else{
+			}else if(2 == def){
 				result = getField(request.getClass(), version);
 			}	 		
 		}
@@ -546,7 +570,7 @@ public class ParseUtil {
 			OutbndRqtMtnDtcnSnstyStoreVO request = new OutbndRqtMtnDtcnSnstyStoreVO();
 			if(1 == def){
 				result = getField(HomeCameraVO.class, version);
-			}else{
+			}else if(2 == def){
 				result = getField(request.getClass(), version);
 			}	 		
 		}
@@ -554,7 +578,7 @@ public class ParseUtil {
 			OutbndRqtMtnDtcnSnstyStoreVO.Response request = new OutbndRqtMtnDtcnSnstyStoreVO.Response();
 			if(1 == def){
 				result = getField(HomeCameraVO.class, version);
-			}else{
+			}else if(2 == def){
 				result = getField(request.getClass(), version);
 			}	 		
 		}
@@ -562,7 +586,7 @@ public class ParseUtil {
 			OutbndRqtSoundDtcnSnstyStoreVO request = new OutbndRqtSoundDtcnSnstyStoreVO();
 			if(1 == def){
 				result = getField(HomeCameraVO.class, version);
-			}else{
+			}else if(2 == def){
 				result = getField(request.getClass(), version);
 			}	 		
 		}
@@ -570,7 +594,7 @@ public class ParseUtil {
 			OutbndRqtSoundDtcnSnstyStoreVO.Response request = new OutbndRqtSoundDtcnSnstyStoreVO.Response();
 			if(1 == def){
 				result = getField(HomeCameraVO.class, version);
-			}else{
+			}else if(2 == def){
 				result = getField(request.getClass(), version);
 			}	 		
 		}
@@ -578,7 +602,7 @@ public class ParseUtil {
 			OutbndRqtRelaySttusVO request = new OutbndRqtRelaySttusVO();
 			if(1 == def){
 				result = getField(HomeCameraVO.class, version);
-			}else{
+			}else if(2 == def){
 				result = getField(request.getClass(), version);
 			}	 		
 		}
@@ -586,7 +610,7 @@ public class ParseUtil {
 			OutbndRqtRelaySttusVO.Response request = new OutbndRqtRelaySttusVO.Response();
 			if(1 == def){
 				result = getField(HomeCameraVO.class, version);
-			}else{
+			}else if(2 == def){
 				result = getField(request.getClass(), version);
 			}	 		
 		}
@@ -616,6 +640,22 @@ public class ParseUtil {
 		Collections.sort(fieldsList, new FieldHintIndexComparator());
 
 		return fieldsList;
+	}
+	
+	public static boolean checkLogVO(String inputHexCode) {
+		boolean result = false;
+		
+		inputHexCode = inputHexCode.trim().replaceAll(" ", "");
+		byte[] packet = StringUtil.hexToByteArray(inputHexCode);
+		int command = HomeCameraUtil.extractCommand(packet);
+		Camera.Request cmd = Camera.Request.getRequest(command);
+		Camera.Response cmdR = Camera.Response.getResponse(command);
+		
+		if (cmd == Camera.Request.CAM_LOG_SEND || cmdR == Camera.Response.CAM_LOG_SEND){ // 카메라 로그 전송
+	 		result = true;
+		}
+		
+		return result;
 	}
 	
 }

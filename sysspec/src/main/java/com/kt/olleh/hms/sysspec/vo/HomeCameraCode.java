@@ -212,7 +212,9 @@ public class HomeCameraCode {
 			/** ucloud 토큰 갱신 */
 			UCLOUD_TOKN_UPD(0x00000006),
 			/** SDCard 장애 알림 */
-			SDCARD_OOS_PUSH(0x00000007);
+			SDCARD_OOS_PUSH(0x00000007),
+			/** 단말로그 전송 */
+			CAM_LOG_SEND(0x00000008);
 
 			private final int value;
 
@@ -268,7 +270,9 @@ public class HomeCameraCode {
 			/** ucloud 토큰 갱신 */
 			UCLOUD_TOKN_UPD(0x80000006),
 			/** SDCard 장애 알림 */
-			SDCARD_OOS_PUSH(0x80000007);
+			SDCARD_OOS_PUSH(0x80000007),
+			/** 단말로그 전송 */
+			CAM_LOG_SEND(0x80000008);
 
 			private final int value;
 
