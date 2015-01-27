@@ -651,7 +651,7 @@ public class ParseUtil {
 		Camera.Request cmd = Camera.Request.getRequest(command);
 		Camera.Response cmdR = Camera.Response.getResponse(command);
 		
-		if (cmd == Camera.Request.CAM_LOG_SEND || cmdR == Camera.Response.CAM_LOG_SEND){ // 카메라 로그 전송
+		if (cmd == Camera.Request.CAM_LOG_SEND){ // 카메라 로그 전송
 	 		result = true;
 		}
 		
