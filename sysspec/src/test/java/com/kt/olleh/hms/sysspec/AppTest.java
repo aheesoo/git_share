@@ -1,11 +1,21 @@
 package com.kt.olleh.hms.sysspec;
 
 import java.nio.ByteBuffer;
+import java.util.Scanner;
+
+import org.apache.commons.codec.binary.Hex;
+import org.apache.commons.codec.EncoderException;
+import org.apache.commons.codec.StringEncoder;
+import org.apache.commons.codec.StringEncoderComparator;
+import org.hamcrest.core.IsNot;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.FixMethodOrder;
+import org.junit.runners.MethodSorters;
 
 import com.kt.olleh.hms.sysspec.util.HomeCameraUtil;
 import com.kt.smcp.gw.ca.util.ConvertUtil;
 
-import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
@@ -25,30 +35,40 @@ public class AppTest
         super( testName );
     }
 
-    /**
-     * @return the suite of tests being tested
-     */
-    public static Test suite()
-    {
-        return new TestSuite( AppTest.class );
-    }
 
     /**
      * Rigourous Test :-)
      */
     public void testApp()
     {
-    	String hex = "1EDC5808";
-    	
-        byte ba[] = new byte[hex.length() / 2];
-        for(int i = 0; i < ba.length; i++)
-            ba[i] = (byte)Integer.parseInt(hex.substring(2 * i, 2 * i + 2), 16);
-
-        System.out.println("byte -----> "+ba);
-
-        System.out.println("result ---> "+ByteBuffer.wrap(ba).getInt());
-    	 
+    	String result = "";
+    	String s = "SYSTEM";
+    	String inputString = " ";  
+    	String hexString = "";
+    	byte[] inputBytes = inputString.getBytes(); 
+    	for (byte b : inputBytes) {  
+    	    hexString += Integer.toString((b & 0xF0) >> 4, 16);  
+    	    hexString += Integer.toString(b & 0x0F, 16);  
+    	}  
+    	System.out.println("hex String   :" + hexString);  
         assertTrue( true );
+        
     }
+    
+    @Test
+    public void stringToHex(String s) {
+    	s = "001234AABBCC";
+        String result = "";
+
+        for (int i = 0; i < s.length(); i++) {
+          result += String.format("%02X ", (int) s.charAt(i));
+        }
+        
+        Byte.decode(result);
+        System.out.println(" sssssssssssss : "+result);
+        System.out.println(" aaaaa : "+Byte.decode(result));
+        
+        assertTrue(true);
+      }
     
 }

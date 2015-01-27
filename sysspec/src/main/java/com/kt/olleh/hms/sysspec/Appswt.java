@@ -174,6 +174,7 @@ public class Appswt
 	
 	private int bodyOff = 0;
 	private int logOff = 0;
+	private short logValueLength = 0;
 	public void setCamSpec(List<Field> voList, String code, int defInt) throws DecoderException{
 		
 		if(1 == defInt){
@@ -223,38 +224,7 @@ public class Appswt
 					offset += fieldLength;
 					
 					field.setAccessible(true);
-					
-					if (fieldType == String.class)
-					{
-						String value = bytesToString(extractedData);
-						reValue = value;
-						System.out.println(" String value : "+value);
-					}
-					else if (fieldType == Integer.class)
-					{
-						Integer value = bytesToInteger(extractedData);
-						if("Command".equals(name)){
-							
-							reValue = byteArrayToHex(extractedData);
-						}else{
-							reValue = value.toString();
-						}
-						System.out.println(" int value : "+value);
-					}
-					else if (fieldType == byte[].class)
-					{
-						byte[] value = extractedData;
-						reValue = String.valueOf(value.length);
-						System.out.println(" byte value : "+value);
-					}
-					else if (fieldType == UUID.class)
-					{
-						UUID value = bytesToUUID(extractedData);
-						reValue = value.toString();
-						System.out.println(" UUID value : "+value);
-					}
-					else
-						throw new RuntimeException("Setting field of " + fieldTypeSimpleName + " is not yet implemented.");
+					reValue = getTypeValue(fieldType, name, extractedData, 1);
 	
 					new Label(groupBody, SWT.NULL).setText(name);
 					Text textObj = new Text(groupBody, SWT.SINGLE | SWT.BORDER);
@@ -278,7 +248,7 @@ public class Appswt
 				textLog.setLayoutData(new GridData(GridData.FILL_BOTH));
 
 				while(checkLastData){
-					short logValueLength = 0;
+//					short logValueLength = 0;
 					for(int j=0; j<voList.size(); j++){
 						
 						Class<?> fieldType2 = voList.get(j).getType();
@@ -308,43 +278,7 @@ public class Appswt
 						System.arraycopy(data, offset, extractedData2, 0, fieldLength2);
 						offset += fieldLength2;
 						field2.setAccessible(true);
-						
-						if (fieldType2 == String.class)
-						{
-							String value = bytesToString(extractedData2);
-							if("LogType".equals(name)){
-								value = trimBytesToString(extractedData2);
-							}
-							reValue = value;
-							System.out.println(" String value : "+value);
-						}
-						else if (fieldType2 == Integer.class)
-						{
-							Integer value = bytesToInteger(extractedData2);
-							reValue = value.toString();
-							System.out.println(" int value : "+value);
-						}
-						else if (fieldType2 == Short.class)
-						{
-							short value = bytesToShort(extractedData2);
-							logValueLength = value;
-							reValue = String.valueOf(value);
-							System.out.println(" short value : "+logValueLength);
-						}
-						else if (fieldType2 == byte[].class)
-						{
-							byte[] value = extractedData2;
-							reValue = String.valueOf(value.length);
-							System.out.println(" byte value : "+value);
-						}
-						else if (fieldType2 == UUID.class)
-						{
-							UUID value = bytesToUUID(extractedData2);
-							reValue = value.toString();
-							System.out.println(" UUID value : "+value);
-						}
-						else
-							throw new RuntimeException("Setting field of " + fieldTypeSimpleName2 + " is not yet implemented.");
+						reValue = getTypeValue(fieldType2, name, extractedData2, 3);
 						
 						textArea += "<"+name+"> : "+reValue;
 						textArea += "\r\n";
@@ -493,6 +427,57 @@ public class Appswt
 		} catch (Exception e){
 			e.printStackTrace();
 		}
+	}
+	
+	public String getTypeValue(Class<?> fieldType, String name, byte[] exData, int defFlag){
+		String reValue = "";
+//		short logValueLength = 0;
+		if (fieldType == String.class)
+		{
+			String value = bytesToString(exData);
+			if("LogType".equals(name)){
+				value = trimBytesToString(exData);
+			}
+			reValue = value;
+			System.out.println(" String value : "+value);
+		}
+		else if (fieldType == Integer.class)
+		{
+			Integer value = bytesToInteger(exData);
+			if(defFlag != 3){
+				if("Command".equals(name)){
+					reValue = byteArrayToHex(exData);
+				}else{
+					reValue = value.toString();
+				}
+			}else{
+				reValue = value.toString();
+			}
+			System.out.println(" int value : "+value);
+		}
+		else if (fieldType == Short.class)
+		{
+			short value = bytesToShort(exData);
+			logValueLength = value;
+			reValue = String.valueOf(value);
+			System.out.println(" short value : "+logValueLength);
+		}
+		else if (fieldType == byte[].class)
+		{
+			byte[] value = exData;
+			reValue = String.valueOf(value.length);
+			System.out.println(" byte value : "+value);
+		}
+		else if (fieldType == UUID.class)
+		{
+			UUID value = bytesToUUID(exData);
+			reValue = value.toString();
+			System.out.println(" UUID value : "+value);
+		}
+		else
+			throw new RuntimeException("Setting field of " + name + " is not yet implemented.");
+		
+		return reValue;
 	}
 	
     public static void main(String[] args) {
