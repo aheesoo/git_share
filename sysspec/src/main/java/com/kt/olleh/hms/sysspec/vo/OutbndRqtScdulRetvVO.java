@@ -55,10 +55,16 @@ public class OutbndRqtScdulRetvVO extends HomeCameraOutbndVO {
 		@FieldHint(index = 8, length = 4)
 		private Integer ModeRec;
 		
+		/*@FieldHint(index = 9, length = 4)
+		private Integer DurationRec;*/
+		
 		@FieldHint(index = 9, length = 4)
-		private Integer DurationRec;
+		private String TimeEnd;
 		
 		@FieldHint(index = 10, length = 4)
+		private int Period;
+		
+		@FieldHint(index = 11, length = 4)
 		private Integer DayRec;
 
 		public Integer getResult() {
@@ -125,12 +131,20 @@ public class OutbndRqtScdulRetvVO extends HomeCameraOutbndVO {
 			ModeRec = modeRec;
 		}
 
-		public Integer getDurationRec() {
-			return DurationRec;
+		public String getTimeEnd() {
+			return TimeEnd;
 		}
 
-		public void setDurationRec(Integer durationRec) {
-			DurationRec = durationRec;
+		public void setTimeEnd(String timeEnd) {
+			TimeEnd = timeEnd;
+		}
+
+		public int getPeriod() {
+			return Period;
+		}
+
+		public void setPeriod(int period) {
+			Period = period;
 		}
 
 		public Integer getDayRec() {

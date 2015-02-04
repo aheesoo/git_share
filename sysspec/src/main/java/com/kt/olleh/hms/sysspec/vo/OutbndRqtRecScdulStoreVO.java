@@ -41,14 +41,24 @@ public class OutbndRqtRecScdulStoreVO extends HomeCameraOutbndVO {
 		ModeRec = modeRec;
 	}
 	
-	@FieldHint(index = 5, length = 4)
-	private Integer DurationRec;
+	/*@FieldHint(index = 5, length = 4)
+	private Integer DurationRec;*/
 	
-	public void setDurationRec(int durationRec) {
-		DurationRec = durationRec;
+	@FieldHint(index = 5, length = 4)
+	private String TimeEnd;
+	
+	public void setTimeEnd(String timeEnd) {
+		TimeEnd = timeEnd;
 	}
 	
 	@FieldHint(index = 6, length = 4)
+	private int Period;
+	
+	public void setPeriod(int period) {
+		Period = period;
+	}
+	
+	@FieldHint(index = 7, length = 4)
 	private Integer DayRec;
 	
 	public void setDayRec(int dayRec) {
@@ -78,10 +88,16 @@ public class OutbndRqtRecScdulStoreVO extends HomeCameraOutbndVO {
 		@FieldHint(index = 4, length = 4)
 		private Integer ModeRec;
 		
+		/*@FieldHint(index = 5, length = 4)
+		private Integer DurationRec;*/
+		
 		@FieldHint(index = 5, length = 4)
-		private Integer DurationRec;
+		private String TimeEnd;
 		
 		@FieldHint(index = 6, length = 4)
+		private int Period;
+		
+		@FieldHint(index = 7, length = 4)
 		private Integer DayRec;
 
 		public Integer getResult() {
@@ -116,12 +132,20 @@ public class OutbndRqtRecScdulStoreVO extends HomeCameraOutbndVO {
 			ModeRec = modeRec;
 		}
 
-		public Integer getDurationRec() {
-			return DurationRec;
+		public String getTimeEnd() {
+			return TimeEnd;
 		}
 
-		public void setDurationRec(Integer durationRec) {
-			DurationRec = durationRec;
+		public void setTimeEnd(String timeEnd) {
+			TimeEnd = timeEnd;
+		}
+
+		public int getPeriod() {
+			return Period;
+		}
+
+		public void setPeriod(int period) {
+			Period = period;
 		}
 
 		public Integer getDayRec() {
