@@ -80,9 +80,9 @@ public class OutbndRqtScdulStoreVO extends HomeCameraOutbndVO {
 	}
 	
 	@FieldHint(index = 10, length = 4)
-	private int Period;
+	private Integer Period;
 	
-	public void setPeriod(int period) {
+	public void setPeriod(Integer period) {
 		Period = period;
 	}
 	
@@ -135,7 +135,7 @@ public class OutbndRqtScdulStoreVO extends HomeCameraOutbndVO {
 		private String TimeEnd;
 		
 		@FieldHint(index = 10, length = 4)
-		private int Period;
+		private Integer Period;
 		
 		@FieldHint(index = 10, length = 4)
 		private Integer DayRec;
@@ -212,11 +212,11 @@ public class OutbndRqtScdulStoreVO extends HomeCameraOutbndVO {
 			TimeEnd = timeEnd;
 		}
 
-		public int getPeriod() {
+		public Integer getPeriod() {
 			return Period;
 		}
 
-		public void setPeriod(int period) {
+		public void setPeriod(Integer period) {
 			Period = period;
 		}
 
