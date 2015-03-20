@@ -24,6 +24,12 @@ public final class InbndRqtSDCardErrPushVO extends HomeCameraInbndVO {
 
 	@FieldHint(index = 2, length = 14)
 	private String DateTime;
+	
+	@FieldHint(index = 3, length = 4)
+	private Integer EventType;
+	
+	@FieldHint(index = 4, length = 8)
+	private Integer SpareStorage;
 
 	public UUID getDeviceID() {
 		return DeviceID;
@@ -39,6 +45,22 @@ public final class InbndRqtSDCardErrPushVO extends HomeCameraInbndVO {
 
 	public void setDateTime(String dateTime) {
 		DateTime = dateTime;
+	}
+
+	public Integer getEventType() {
+		return EventType;
+	}
+
+	public void setEventType(Integer eventType) {
+		EventType = eventType;
+	}
+
+	public Integer getSpareStorage() {
+		return SpareStorage;
+	}
+
+	public void setSpareStorage(Integer spareStorage) {
+		SpareStorage = spareStorage;
 	}
 
 	public static final class Response extends HomeCameraOutbndVO {

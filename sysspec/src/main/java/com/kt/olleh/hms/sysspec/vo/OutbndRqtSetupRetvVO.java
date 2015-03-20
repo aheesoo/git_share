@@ -73,7 +73,7 @@ public class OutbndRqtSetupRetvVO extends HomeCameraOutbndVO {
 		@FieldHint(index = 14, length = 10)
 		private String firmwareVersion;
 		
-		@FieldHint(index = 15, length = 20)
+		@FieldHint(index = 15, length = 32)
 		private String APName;
 		
 		@FieldHint(index = 16, length = 10)
