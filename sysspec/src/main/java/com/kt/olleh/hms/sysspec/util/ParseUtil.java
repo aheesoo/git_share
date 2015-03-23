@@ -29,6 +29,9 @@ import com.kt.olleh.hms.sysspec.vo.InbndRqtSDCardErrPushVO;
 import com.kt.olleh.hms.sysspec.vo.InbndRqtUcloudErrPushVO;
 import com.kt.olleh.hms.sysspec.vo.InbndRqtUcloudToknUpdVO;
 import com.kt.olleh.hms.sysspec.vo.OutbndRqtAlmContlVO;
+import com.kt.olleh.hms.sysspec.vo.OutbndRqtCamLogModeRetvVO;
+import com.kt.olleh.hms.sysspec.vo.OutbndRqtCamLogModeStoreVO;
+import com.kt.olleh.hms.sysspec.vo.OutbndRqtCamStateVO;
 import com.kt.olleh.hms.sysspec.vo.OutbndRqtIntrsDtcnStoreVO;
 import com.kt.olleh.hms.sysspec.vo.OutbndRqtMtnDtcnPushIntvlStoreVO;
 import com.kt.olleh.hms.sysspec.vo.OutbndRqtMtnDtcnSnstyStoreVO;
@@ -614,7 +617,54 @@ public class ParseUtil {
 				result = getField(request.getClass(), version);
 			}	 		
 		}
-		
+		else if (gcmd == GwServer.Request.CAM_STTUS_CHK){// 카메라 상태 체크
+			OutbndRqtCamStateVO request = new OutbndRqtCamStateVO();
+			if(1 == def){
+				result = getField(HomeCameraVO.class, version);
+			}else if(2 == def){
+				result = getField(request.getClass(), version);
+			}	 		
+		}
+		else if (gcmd == GwServer.Request.CAM_STTUS_CHK){// 카메라 상태 체크
+			OutbndRqtCamStateVO.Response request = new OutbndRqtCamStateVO.Response();
+			if(1 == def){
+				result = getField(HomeCameraVO.class, version);
+			}else if(2 == def){
+				result = getField(request.getClass(), version);
+			}	 		
+		}
+		else if (gcmd == GwServer.Request.CAM_LOGMODE_RETV){// 단말관리 설정 조회
+			OutbndRqtCamLogModeRetvVO request = new OutbndRqtCamLogModeRetvVO();
+			if(1 == def){
+				result = getField(HomeCameraVO.class, version);
+			}else if(2 == def){
+				result = getField(request.getClass(), version);
+			}	 		
+		}
+		else if (gcmd == GwServer.Request.CAM_LOGMODE_RETV){// 단말 관리 설정 조회
+			OutbndRqtCamLogModeRetvVO.Response request = new OutbndRqtCamLogModeRetvVO.Response();
+			if(1 == def){
+				result = getField(HomeCameraVO.class, version);
+			}else if(2 == def){
+				result = getField(request.getClass(), version);
+			}	 		
+		}
+		else if (gcmd == GwServer.Request.CAM_LOGMODE_STORE){// 단말로그 실시간 요청
+			OutbndRqtCamLogModeStoreVO request = new OutbndRqtCamLogModeStoreVO();
+			if(1 == def){
+				result = getField(HomeCameraVO.class, version);
+			}else if(2 == def){
+				result = getField(request.getClass(), version);
+			}	 		
+		}
+		else if (gcmd == GwServer.Request.CAM_LOGMODE_STORE){// 단말로그 실시간 요청
+			OutbndRqtCamLogModeStoreVO.Response request = new OutbndRqtCamLogModeStoreVO.Response();
+			if(1 == def){
+				result = getField(HomeCameraVO.class, version);
+			}else if(2 == def){
+				result = getField(request.getClass(), version);
+			}	 		
+		}
 	 	
 		return result;
 	}

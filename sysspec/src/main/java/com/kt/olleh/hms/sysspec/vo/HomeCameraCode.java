@@ -60,7 +60,14 @@ public class HomeCameraCode {
 			/** 음향 감지 민감도 저장 */
 			SOUND_DTCN_SNSTY_STORE(0x00800019),
 			/** 릴레이 상태 전송 */
-			RELAY_STTUS_SEND(0x0080001A);
+			RELAY_STTUS_SEND(0x0080001A),
+			/** 카메라 상태 체크*/
+			CAM_STTUS_CHK(0x0080001B),
+			/** 단말 관리 설정 조회*/
+			CAM_LOGMODE_RETV(0x0080001C),
+			/** 단말 로그 실시간 요청*/
+			CAM_LOGMODE_STORE(0x0080001E);
+			
 
 			private final int value;
 
@@ -154,7 +161,13 @@ public class HomeCameraCode {
 			/** 음향 감지 민감도 저장 */
 			SOUND_DTCN_SNSTY_STORE(0x80800019),
 			/** 릴레이 상태 전송 */
-			RELAY_STTUS_SEND(0x8080001A);
+			RELAY_STTUS_SEND(0x8080001A),
+			/** 카메라 상태 체크*/
+			CAM_STTUS_CHK(0x8080001B),
+			/** 단말 관리 설정 조회*/
+			CAM_LOGMODE_RETV(0x8080001C),
+			/** 단말 로그 실시간 요청*/
+			CAM_LOGMODE_STORE(0x8080001E);
 
 			private final int value;
 

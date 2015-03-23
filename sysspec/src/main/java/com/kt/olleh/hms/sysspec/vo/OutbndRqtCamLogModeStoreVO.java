@@ -21,15 +21,22 @@ public class OutbndRqtCamLogModeStoreVO extends HomeCameraOutbndVO {
 	public void setDeviceID(long svcTgtSeq, long spotDevSeq) {
 		DeviceID = new UUID(svcTgtSeq, spotDevSeq);
 	}
-
+	
 	@FieldHint(index = 2, length = 4)
+	private Integer LogMode;
+	
+	public void setLogMode(Integer logMode) {
+		LogMode = logMode;
+	}
+
+	@FieldHint(index = 3, length = 4)
 	private Integer CollectCount;
 
 	public void setCollectCount(int collectCount) {
 		CollectCount = collectCount;
 	}
 
-	@FieldHint(index = 3, length = 4)
+	@FieldHint(index = 4, length = 4)
 	private Integer CollectPeriod;
 
 	public void setCollectPeriod(int collectPeriod) {
