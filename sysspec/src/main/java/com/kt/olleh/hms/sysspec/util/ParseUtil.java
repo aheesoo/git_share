@@ -22,16 +22,19 @@ import com.kt.olleh.hms.sysspec.vo.HomeCameraVO;
 import com.kt.olleh.hms.sysspec.vo.InbndRqtCamLogListVO;
 import com.kt.olleh.hms.sysspec.vo.InbndRqtCamLogModeSendVO;
 import com.kt.olleh.hms.sysspec.vo.InbndRqtKeepAliveVO;
+import com.kt.olleh.hms.sysspec.vo.InbndRqtPrivacyChangeVO;
 import com.kt.olleh.hms.sysspec.vo.InbndRqtPwrOffPushVO;
 import com.kt.olleh.hms.sysspec.vo.InbndRqtRegAndAthn;
 import com.kt.olleh.hms.sysspec.vo.InbndRqtIntrsDtcnPushVO;
 import com.kt.olleh.hms.sysspec.vo.InbndRqtSDCardErrPushVO;
+import com.kt.olleh.hms.sysspec.vo.InbndRqtSetupNotiVO;
 import com.kt.olleh.hms.sysspec.vo.InbndRqtUcloudErrPushVO;
 import com.kt.olleh.hms.sysspec.vo.InbndRqtUcloudToknUpdVO;
 import com.kt.olleh.hms.sysspec.vo.OutbndRqtAlmContlVO;
 import com.kt.olleh.hms.sysspec.vo.OutbndRqtCamLogModeRetvVO;
 import com.kt.olleh.hms.sysspec.vo.OutbndRqtCamLogModeStoreVO;
 import com.kt.olleh.hms.sysspec.vo.OutbndRqtCamStateVO;
+import com.kt.olleh.hms.sysspec.vo.OutbndRqtIntgSetupRetvVO;
 import com.kt.olleh.hms.sysspec.vo.OutbndRqtIntrsDtcnStoreVO;
 import com.kt.olleh.hms.sysspec.vo.OutbndRqtMtnDtcnPushIntvlStoreVO;
 import com.kt.olleh.hms.sysspec.vo.OutbndRqtMtnDtcnSnstyStoreVO;
@@ -55,6 +58,7 @@ import com.kt.olleh.hms.sysspec.vo.OutbndRqtVdoRvrtStoreVO;
 import com.kt.olleh.hms.sysspec.vo.OutbndRqtVdoSendActvStoreVO;
 import com.kt.olleh.hms.sysspec.vo.OutbndRqtWatchScdulRetvVO;
 import com.kt.olleh.hms.sysspec.vo.OutbndRqtWatchScdulStoreVO;
+import com.kt.olleh.hms.sysspec.vo.OutbndRqtWifiQosRqtVO;
 import com.kt.olleh.hms.sysspec.vo.OutbndRqtWifiRecnContlVO;
 
 import org.apache.commons.codec.DecoderException;
@@ -216,6 +220,40 @@ public class ParseUtil {
 				result = getField(requestLogVO.getClass(), version);
 			}	
 		}
+	 	else if (cmd == Camera.Request.PRIVACY_MODE){ // 사생활 보호 모드
+	 		InbndRqtPrivacyChangeVO request = new InbndRqtPrivacyChangeVO();
+	 		if(1 == def){
+				result = getField(HomeCameraVO.class, version);
+			}else if(2 == def){
+				result = getField(request.getClass(), version);
+			}
+		} 
+	 	else if (cmdR == Camera.Response.PRIVACY_MODE){ // 사생활 보호 모드
+	 		InbndRqtPrivacyChangeVO.Response request = new InbndRqtPrivacyChangeVO.Response();
+	 		if(1 == def){
+				result = getField(HomeCameraVO.class, version);
+			}else if(2 == def){
+				result = getField(request.getClass(), version);
+			}
+		}
+	 	else if (cmd == Camera.Request.INTG_SETUP_SEND){ // 통합 설정 전송
+	 		InbndRqtSetupNotiVO request = new InbndRqtSetupNotiVO();
+	 		if(1 == def){
+				result = getField(HomeCameraVO.class, version);
+			}else if(2 == def){
+				result = getField(request.getClass(), version);
+			}
+		} 
+	 	else if (cmdR == Camera.Response.INTG_SETUP_SEND){ // 통합 설정 전송
+	 		InbndRqtSetupNotiVO.Response request = new InbndRqtSetupNotiVO.Response();
+	 		if(1 == def){
+				result = getField(HomeCameraVO.class, version);
+			}else if(2 == def){
+				result = getField(request.getClass(), version);
+			}
+		}
+	 	
+	 	
 		else if (gcmd == GwServer.Request.GENRL_SETUP_RETV){ // 카메라 설정 정보 조회
 			OutbndRqtSetupRetvVO request = new OutbndRqtSetupRetvVO();
 			if(1 == def){
@@ -625,7 +663,7 @@ public class ParseUtil {
 				result = getField(request.getClass(), version);
 			}	 		
 		}
-		else if (gcmd == GwServer.Request.CAM_STTUS_CHK){// 카메라 상태 체크
+		else if (gcmdR == GwServer.Response.CAM_STTUS_CHK){// 카메라 상태 체크
 			OutbndRqtCamStateVO.Response request = new OutbndRqtCamStateVO.Response();
 			if(1 == def){
 				result = getField(HomeCameraVO.class, version);
@@ -641,7 +679,7 @@ public class ParseUtil {
 				result = getField(request.getClass(), version);
 			}	 		
 		}
-		else if (gcmd == GwServer.Request.CAM_LOGMODE_RETV){// 단말 관리 설정 조회
+		else if (gcmdR == GwServer.Response.CAM_LOGMODE_RETV){// 단말 관리 설정 조회
 			OutbndRqtCamLogModeRetvVO.Response request = new OutbndRqtCamLogModeRetvVO.Response();
 			if(1 == def){
 				result = getField(HomeCameraVO.class, version);
@@ -657,7 +695,7 @@ public class ParseUtil {
 				result = getField(request.getClass(), version);
 			}	 		
 		}
-		else if (gcmd == GwServer.Request.CAM_LOGMODE_STORE){// 단말로그 실시간 요청
+		else if (gcmdR == GwServer.Response.CAM_LOGMODE_STORE){// 단말로그 실시간 요청
 			OutbndRqtCamLogModeStoreVO.Response request = new OutbndRqtCamLogModeStoreVO.Response();
 			if(1 == def){
 				result = getField(HomeCameraVO.class, version);
@@ -665,6 +703,39 @@ public class ParseUtil {
 				result = getField(request.getClass(), version);
 			}	 		
 		}
+		else if (gcmd == GwServer.Request.INTG_SETUP_RETV){// 통합 설정 조회
+			OutbndRqtIntgSetupRetvVO request = new OutbndRqtIntgSetupRetvVO();
+			if(1 == def){
+				result = getField(HomeCameraVO.class, version);
+			}else if(2 == def){
+				result = getField(request.getClass(), version);
+			}	 		
+		}
+		else if (gcmdR == GwServer.Response.INTG_SETUP_RETV){// 통합 설정 조회
+			OutbndRqtIntgSetupRetvVO.Response request = new OutbndRqtIntgSetupRetvVO.Response();
+			if(1 == def){
+				result = getField(HomeCameraVO.class, version);
+			}else if(2 == def){
+				result = getField(request.getClass(), version);
+			}	 		
+		}
+		else if (gcmd == GwServer.Request.WIFI_QOS_RQT){// WIFI 품질정보 요청
+			OutbndRqtWifiQosRqtVO request = new OutbndRqtWifiQosRqtVO();
+			if(1 == def){
+				result = getField(HomeCameraVO.class, version);
+			}else if(2 == def){
+				result = getField(request.getClass(), version);
+			}	 		
+		}
+		else if (gcmdR == GwServer.Response.WIFI_QOS_RQT){// WIFI 품질정보 요청
+			OutbndRqtWifiQosRqtVO.Response request = new OutbndRqtWifiQosRqtVO.Response();
+			if(1 == def){
+				result = getField(HomeCameraVO.class, version);
+			}else if(2 == def){
+				result = getField(request.getClass(), version);
+			}	 		
+		}
+	 	
 	 	
 		return result;
 	}

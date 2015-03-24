@@ -66,7 +66,11 @@ public class HomeCameraCode {
 			/** 단말 관리 설정 조회*/
 			CAM_LOGMODE_RETV(0x0080001C),
 			/** 단말 로그 실시간 요청*/
-			CAM_LOGMODE_STORE(0x0080001E);
+			CAM_LOGMODE_STORE(0x0080001E),
+			/** 통합 설정 조회 */
+			INTG_SETUP_RETV(0x8080001F),
+			/** WIFI 품질정보 요청 */
+			WIFI_QOS_RQT(0x00800020);
 			
 
 			private final int value;
@@ -167,7 +171,11 @@ public class HomeCameraCode {
 			/** 단말 관리 설정 조회*/
 			CAM_LOGMODE_RETV(0x8080001C),
 			/** 단말 로그 실시간 요청*/
-			CAM_LOGMODE_STORE(0x8080001E);
+			CAM_LOGMODE_STORE(0x8080001E),
+			/** 통합 설정 조회 */
+			INTG_SETUP_RETV(0x8080001F),
+			/** WIFI 품질정보 요청 */
+			WIFI_QOS_RQT(0x80800020);
 
 			private final int value;
 
@@ -227,7 +235,11 @@ public class HomeCameraCode {
 			/** SDCard 장애 알림 */
 			SDCARD_OOS_PUSH(0x00000007),
 			/** 단말로그 전송 */
-			CAM_LOG_SEND(0x00000008);
+			CAM_LOG_SEND(0x00000008),
+			/** 사생활보호모드 변경 */
+			PRIVACY_MODE(0x00000009),
+			/** 통합 설정 전송 */
+			INTG_SETUP_SEND(0x0000000A);
 
 			private final int value;
 
@@ -285,7 +297,11 @@ public class HomeCameraCode {
 			/** SDCard 장애 알림 */
 			SDCARD_OOS_PUSH(0x80000007),
 			/** 단말로그 전송 */
-			CAM_LOG_SEND(0x80000008);
+			CAM_LOG_SEND(0x80000008),
+			/** 사생활보호모드 변경 */
+			PRIVACY_MODE(0x80000009),
+			/** 통합 설정 전송 */
+			INTG_SETUP_SEND(0x8000000A);
 
 			private final int value;
 
