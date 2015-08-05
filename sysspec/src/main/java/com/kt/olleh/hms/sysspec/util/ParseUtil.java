@@ -766,7 +766,7 @@ public class ParseUtil {
 	public static boolean checkLogVO(String inputHexCode) {
 		boolean result = false;
 		
-		inputHexCode = inputHexCode.trim().replaceAll(" ", "");
+		inputHexCode = inputHexCode.trim().replaceAll(" ", ""); 
 		byte[] packet = StringUtil.hexToByteArray(inputHexCode);
 		int command = HomeCameraUtil.extractCommand(packet);
 		Camera.Request cmd = Camera.Request.getRequest(command);
